@@ -1,2 +1,54 @@
-<p>activities works!</p>
-<h1>Bonjour {{ decodedToken.name }}</h1>
+<div class="container mx-auto">
+    <p class="mb-4">Activities works!</p>
+    <h1 class="text-2xl mb-4">Bonjour {{ decodedToken.name }}</h1>
+    <!-- Filter options -->
+    <div class="flex mb-4">
+        <label for="matiere" class="mr-2">Matiere:</label>
+        <select [(ngModel)]="filters.matiere" id="matiere" class="px-2 py-1 border border-gray-300 rounded">
+            <option value="all">All</option>
+            <option *ngFor="let activity of originalActivities" [value]="activity.matiere">{{ activity.matiere }}
+            </option>
+            <!-- Add additional "matiere" options here -->
+        </select>
+
+        <label for="classe" class="ml-4 mr-2">Classe:</label>
+        <select [(ngModel)]="filters.class" id="classe" class="px-2 py-1 border border-gray-300 rounded">
+            <option value="all">All</option>
+            <option *ngFor="let activity of originalActivities" value="{{ activity.class }}">{{ activity.class }}
+            </option>
+        </select>
+
+        <label for="group" class="ml-4 mr-2">Group:</label>
+        <select [(ngModel)]="filters.group" id="group" class="px-2 py-1 border border-gray-300 rounded">
+            <option value="all">All</option>
+            <option *ngFor="let activity of originalActivities" value="{{ activity.group }}">{{ activity.group }}
+            </option>
+        </select>
+    </div>
+    <input type="button" (click)="filter()" value="filter" style="width: 100px; height: 40px;">
+    <div *ngIf="activities.length === 0" class="flex items-center justify-center h-64">
+        <p class="text-gray-500 text-2xl">Loading...</p>
+        <!-- You can replace the "Loading..." text with a spinner component -->
+    </div>
+
+    <table class="min-w-full mt-4" *ngIf="activities.length > 0">
+        <thead>
+            <tr>
+                <th class="py-2">Activité</th>
+                <th class="py-2">Date</th>
+                <th class="py-2">Type</th>
+                <th class="py-2">Remise</th>
+                <!-- Add additional headers here -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let activity of activities">
+                <td class="py-2">{{ activity.intitule }}</td>
+                <td class="py-2">{{ activity.created_at }}</td>
+                <td class="py-2">{{ activity.type }}</td>
+                <td class="py-2">{{ activity.dateRemise }}</td>
+                <!-- Add additional cells here -->
+            </tr>
+        </tbody>
+    </table>
+</div>
