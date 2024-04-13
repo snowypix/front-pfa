@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@ang
 import { ActivitiesService } from '../activities.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxFileDropComponent, NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
+import { log } from 'console';
 
 interface Activity {
   intitule: string;
@@ -14,8 +15,11 @@ interface Activity {
   class: string;
   group: string;
   description: string;
+  filePaths: string;
 }
-
+interface FileName {
+  fileName: string
+}
 @Component({
   selector: 'app-create-activity',
   standalone: true,
@@ -25,6 +29,7 @@ interface Activity {
 })
 export class CreateActivityComponent {
   data: Activity;
+  filepath: FileName
   public files: NgxFileDropEntry[] = [];
   constructor(
     private formBuilder: FormBuilder,
@@ -39,8 +44,10 @@ export class CreateActivityComponent {
       created_at: '',
       class: 'x',
       group: 'x',
-      description: ''
+      description: '',
+      filePaths: ''
     };
+    this.filepath = { fileName: '' }
   }
   public uploadFiles(files: NgxFileDropEntry[]) {
     this.files = files;
@@ -60,10 +67,11 @@ export class CreateActivityComponent {
 
           // Add the token to the request headers
           const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-          this.http.post('http://localhost:8000/api/activities/create/file', formData, { headers: headers, responseType: 'blob' })
-            .subscribe(data => {
-              // Sanitized logo returned from backend
-            })
+          this.http.post('http://localhost:8000/api/activities/create/file', formData, { headers: headers })
+            .subscribe(
+              response => {
+                this.filepath = response as FileName
+              })
 
         });
       } else {
@@ -78,6 +86,9 @@ export class CreateActivityComponent {
   }
 
   onSubmit() {
+    this.data.filePaths = "http://localhost:8000/uploads/" + this.filepath.fileName
+    console.log(this.data);
+
     this.activitiesService.create(this.data).subscribe(
       (response: any) => {
 

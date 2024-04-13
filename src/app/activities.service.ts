@@ -11,6 +11,7 @@ interface Activity {
   class: string;
   group: string;
   description: string;
+  filePaths: string;
 }
 
 @Injectable({
