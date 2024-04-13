@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivitiesService } from '../activities.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NgxFileDropComponent, NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
 
 interface Activity {
   intitule: string;
   type: string;
   matiere: string;
   dateRemise: string;
-  files: File[];
   created_at: string;
   class: string;
   group: string;
@@ -19,14 +19,13 @@ interface Activity {
 @Component({
   selector: 'app-create-activity',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxFileDropModule],
   templateUrl: './create-activity.component.html',
   styleUrl: './create-activity.component.css'
 })
 export class CreateActivityComponent {
-  fileControls: FormControl[] = [];
   data: Activity;
-
+  public files: NgxFileDropEntry[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private activitiesService: ActivitiesService,
@@ -35,55 +34,63 @@ export class CreateActivityComponent {
     this.data = {
       intitule: '',
       type: '',
-      matiere: '',
+      matiere: 'xx',
       dateRemise: '',
-      files: [],
       created_at: '',
-      class: '',
-      group: '',
+      class: 'x',
+      group: 'x',
       description: ''
     };
   }
+  public uploadFiles(files: NgxFileDropEntry[]) {
+    this.files = files;
+    for (const droppedFile of files) {
 
-  addFileInput() {
-    const fileControl = this.formBuilder.control(null);
-    this.fileControls.push(fileControl);
+      // Is it a file?
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+
+          // You could upload it like this:
+          const formData = new FormData()
+          formData.append('logo', file)
+          // Headers
+          // Get the token from wherever you have stored it (e.g., local storage, a service, etc.)
+          const token = localStorage.getItem('token'); // Replace with your actual token
+
+          // Add the token to the request headers
+          const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+          this.http.post('http://localhost:8000/api/activities/create/file', formData, { headers: headers, responseType: 'blob' })
+            .subscribe(data => {
+              // Sanitized logo returned from backend
+            })
+
+        });
+      } else {
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
+      }
+    }
+
+
+
   }
 
   onSubmit() {
-    const activity: Activity = {
-      intitule: this.data.intitule,
-      type: this.data.type,
-      matiere: 'this.data.matiere',
-      dateRemise: this.data.dateRemise,
-      files: this.getFileData(),
-      created_at: this.data.created_at,
-      class: 'this.data.class',
-      group: 'this.data.group',
-      description: this.data.description
-    };
-    console.log(this.getFileData);
-
-    this.activitiesService.create(activity).subscribe(
+    this.activitiesService.create(this.data).subscribe(
       (response: any) => {
-        // Handle successful response
+
       },
       (error) => {
-        // Handle error
       }
     );
   }
+  public fileOver(event: any) {
+    console.log(event);
+  }
 
-  private getFileData(): File[] {
-    const fileData: File[] = [];
-    const fileInputs = document.querySelectorAll<HTMLInputElement>('input[type="file"]');
-    fileInputs.forEach((input: HTMLInputElement) => {
-      if (input.files && input.files.length > 0) {
-        for (let i = 0; i < input.files.length; i++) {
-          fileData.push(input.files[i]);
-        }
-      }
-    });
-    return fileData;
+  public fileLeave(event: any) {
+    console.log(event);
   }
 }
