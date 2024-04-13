@@ -26,6 +26,7 @@
         </select>
     </div>
     <input type="button" (click)="filter()" value="filter" style="width: 100px; height: 40px;">
+    <input type="button" (click)="nouvelle()" style="width: 100px; height: 40px;" value="+ nouvelle activité">
     <div *ngIf="activities.length === 0" class="flex items-center justify-center h-64">
         <p class="text-gray-500 text-2xl">Loading...</p>
         <!-- You can replace the "Loading..." text with a spinner component -->

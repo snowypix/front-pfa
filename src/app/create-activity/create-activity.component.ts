@@ -5,6 +5,7 @@ import { ActivitiesService } from '../activities.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxFileDropComponent, NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
 import { log } from 'console';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Activity {
   intitule: string;
@@ -28,13 +29,18 @@ interface FileName {
   styleUrl: './create-activity.component.css'
 })
 export class CreateActivityComponent {
+  matiere = this.route.snapshot.queryParams['matiere'];
+  class = this.route.snapshot.queryParams['class'];
+  group = this.route.snapshot.queryParams['group'];
   data: Activity;
   filepath: FileName
   public files: NgxFileDropEntry[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private activitiesService: ActivitiesService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.data = {
       intitule: '',
@@ -87,6 +93,9 @@ export class CreateActivityComponent {
 
   onSubmit() {
     this.data.filePaths = "http://localhost:8000/uploads/" + this.filepath.fileName
+    this.data.class = this.class
+    this.data.matiere = this.matiere
+    this.data.group = this.group
     console.log(this.data);
 
     this.activitiesService.create(this.data).subscribe(
@@ -103,5 +112,8 @@ export class CreateActivityComponent {
 
   public fileLeave(event: any) {
     console.log(event);
+  }
+  annuler() {
+    this.router.navigate(["activities"])
   }
 }

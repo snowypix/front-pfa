@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { ActivitiesService } from '../activities.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface Activity {
   intitule: string,
@@ -32,7 +33,7 @@ export class ActivitiesComponent {
     class: '',
     group: '',
   }
-  constructor(private activitiesService: ActivitiesService) { }
+  constructor(private activitiesService: ActivitiesService, private router: Router) { }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -69,5 +70,14 @@ export class ActivitiesComponent {
     }
     console.log(filteredResults);
     this.activities = filteredResults;
+  }
+  nouvelle() {
+    this.router.navigate(["activity/create"], {
+      queryParams: {
+        group: this.filters.group,
+        class: this.filters.class,
+        matiere: this.filters.matiere
+      }
+    });
   }
 }

@@ -1,5 +1,29 @@
 <div class="max-w-md mx-auto p-6 bg-white rounded shadow">
     <h1 class="text-2xl font-bold mb-6">Create Activity</h1>
+    <!-- Filter options -->
+    <div class="flex mb-4">
+        <label for="matiere" class="mr-2">Matiere:</label>
+        <select [(ngModel)]="matiere" id="matiere" class="px-2 py-1 border border-gray-300 rounded">
+            <option value="all">All</option>
+            <option [value]="matiere">{{ matiere }}
+            </option>
+            <!-- Add additional "matiere" options here -->
+        </select>
+
+        <label for="classe" class="ml-4 mr-2">Classe:</label>
+        <select [(ngModel)]="class" id="classe" class="px-2 py-1 border border-gray-300 rounded">
+            <option value="all">All</option>
+            <option value="{{ class }}">{{ class }}
+            </option>
+        </select>
+
+        <label for="group" class="ml-4 mr-2">Group:</label>
+        <select [(ngModel)]="group" id="group" class="px-2 py-1 border border-gray-300 rounded">
+            <option value="all">All</option>
+            <option value="{{ group }}">{{ group }}
+            </option>
+        </select>
+    </div>
     <form (ngSubmit)="onSubmit()">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Intitulé</label>
@@ -47,8 +71,8 @@
         <div class="flex justify-end">
             <button type="submit"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enregistrer</button>
-            <button type="button"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Annuler</button>
+            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                (click)="annuler()">Annuler</button>
         </div>
     </form>
 </div>
