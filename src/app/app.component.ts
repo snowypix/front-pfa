@@ -12,7 +12,6 @@ import { LoginComponent } from './login/login.component';
 export class AppComponent {
   title = 'front-pfa';
   constructor(router: Router) {
-    router.navigate(['login'])
   }
   Logout() {
     localStorage.removeItem('token')

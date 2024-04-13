@@ -1,6 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+// Activity interface
+interface Activity {
+  intitule: string;
+  type: string;
+  matiere: string;
+  dateRemise: string;
+  files: File[]; // Changed from filePaths to files
+  created_at: string;
+  class: string;
+  group: string;
+  description: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,5 +27,14 @@ export class ActivitiesService {
     // Add the token to the request headers
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(this.url, { headers })
+  }
+  // Update the create method
+  create(data: any) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/json');
+
+    return this.http.post(this.url + '/create', data, { headers });
   }
 }
