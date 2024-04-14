@@ -11,9 +11,10 @@ import { LoginComponent } from './login/login.component';
 })
 export class AppComponent {
   title = 'front-pfa';
-  constructor(router: Router) {
+  constructor(private router: Router) {
   }
   Logout() {
     localStorage.removeItem('token')
+    this.router.navigate(['login'])
   }
 }

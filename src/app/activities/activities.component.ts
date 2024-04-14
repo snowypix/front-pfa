@@ -39,6 +39,11 @@ export class ActivitiesComponent {
     const token = localStorage.getItem('token');
     if (token) {
       this.decodedToken = jwtDecode(token);
+      console.log(this.decodedToken as { name: string, role: string });
+
+      if (this.decodedToken.role == 'admin') {
+        this.router.navigate(['admin'])
+      }
       this.activitiesService.getAll().subscribe(
         response => {
           this.activities = response as Activity[];
@@ -49,7 +54,7 @@ export class ActivitiesComponent {
         }
       );
     } else {
-      console.log("not logged in");
+      this.router.navigate(['login'])
     }
   }
 
