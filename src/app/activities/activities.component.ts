@@ -27,6 +27,9 @@ export class ActivitiesComponent {
   activities: Activity[] = [];
   originalActivities: Activity[] = [];
   filteredActivities: Activity[] = [];
+  uniqueGroups: string[] = [];
+  uniqueClasses: string[] = [];
+  uniqueMatieres: string[] = [];
   decodedToken: any;
   filters = {
     matiere: '',
@@ -47,6 +50,9 @@ export class ActivitiesComponent {
       this.activitiesService.getAll().subscribe(
         response => {
           this.activities = response as Activity[];
+          this.uniqueGroups = Array.from(new Set(this.activities.map(activity => activity.group)));
+          this.uniqueClasses = Array.from(new Set(this.activities.map(activity => activity.class)));
+          this.uniqueMatieres = Array.from(new Set(this.activities.map(activity => activity.matiere)));
           this.originalActivities = [...this.activities];
         },
         error => {
