@@ -32,17 +32,24 @@ export class ActivitiesComponent {
   uniqueMatieres: string[] = [];
   decodedToken: any;
   filters = {
+    semestre: '',
     matiere: '',
     class: '',
     group: '',
   }
-  constructor(private activitiesService: ActivitiesService, private router: Router) { }
+  currentDate: Date;
+  currentYear: number;
+  nextYear: any;
+  constructor(private activitiesService: ActivitiesService, private router: Router) {
+    this.currentDate = new Date();
+    this.currentYear = this.currentDate.getFullYear();
+    this.nextYear = this.currentDate.getFullYear() + 1;
+  }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
     if (token) {
       this.decodedToken = jwtDecode(token);
-      console.log(this.decodedToken as { name: string, role: string });
 
       if (this.decodedToken.role == 'admin') {
         this.router.navigate(['admin'])
@@ -66,20 +73,55 @@ export class ActivitiesComponent {
 
   filter() {
     let filteredResults = this.originalActivities;
+    this.activities.forEach(function (activity) {
+      const dateObject = new Date(activity.created_at);
+      console.log(dateObject.getMonth());
+
+    })
+
+    if (this.filters.semestre !== 'all') {
+      if (this.filters.semestre === '1') {
+
+        filteredResults = filteredResults.filter(activity => {
+          // Convert created_at to Date object
+          const createdAtDate = new Date(activity.created_at);
+
+          // Get the month from the Date object (0-based, so October is 9)
+          const createdAtMonth = createdAtDate.getMonth();
+
+          // Check if the month is between October and February
+          const isMonthBetweenOctoberAndFebruary = (createdAtMonth >= 9 && createdAtMonth <= 11) || (createdAtMonth >= 0 && createdAtMonth <= 1);
+          return isMonthBetweenOctoberAndFebruary;
+        });
+      }
+      if (this.filters.semestre === '2') {
+
+        filteredResults = filteredResults.filter(activity => {
+          // Convert created_at to Date object
+          const createdAtDate = new Date(activity.created_at);
+
+          // Get the month from the Date object (0-based, so October is 9)
+          const createdAtMonth = createdAtDate.getMonth();
+
+          // Check if the month is between October and February
+          const isMonthBetweenMarchAndMay = (createdAtMonth >= 2 && createdAtMonth <= 4);
+          return isMonthBetweenMarchAndMay;
+        });
+      }
+    }
 
     if (this.filters.group !== 'all') {
       filteredResults = filteredResults.filter(activity => activity.group === this.filters.group);
     }
-    console.log(filteredResults);
 
     if (this.filters.class !== 'all') {
       filteredResults = filteredResults.filter(activity => activity.class === this.filters.class);
     }
-    console.log(filteredResults);
+
     if (this.filters.matiere !== 'all') {
       filteredResults = filteredResults.filter(activity => activity.matiere === this.filters.matiere);
     }
-    console.log(filteredResults);
+
     this.activities = filteredResults;
   }
   nouvelle() {
