@@ -83,7 +83,6 @@ export class CreateActivityComponent {
       } else {
         // It was a directory (empty directories are added, otherwise only files)
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
       }
     }
 
@@ -96,7 +95,6 @@ export class CreateActivityComponent {
     this.data.class = this.class
     this.data.matiere = this.matiere
     this.data.group = this.group
-    console.log(this.data);
 
     this.activitiesService.create(this.data).subscribe(
       (response: any) => {

@@ -9,6 +9,19 @@
         <div class="flex items-center">
             <label for="matiere" class="mr-2 font-medium">
                 <i class="fas fa-book mr-1"></i>
+                Semestre:
+            </label>
+            <select [(ngModel)]="filters.semestre" id="matiere" class="px-2 py-1 border border-gray-300 rounded">
+                <option value="all">All</option>
+                <option [value]="1">S1 {{ currentYear }} / {{ nextYear }}
+                </option>
+                <option [value]="2 ">S2 {{ currentYear }} / {{ nextYear }}
+                </option>
+            </select>
+        </div>
+        <div class="flex items-center">
+            <label for="matiere" class="mr-2 font-medium">
+                <i class="fas fa-book mr-1"></i>
                 Matière:
             </label>
             <select [(ngModel)]="filters.matiere" id="matiere" class="px-2 py-1 border border-gray-300 rounded">
@@ -85,9 +98,9 @@
         <tbody>
             <tr *ngFor="let activity of activities" class="border-b">
                 <td class="py-2 px-4">{{ activity.intitule }}</td>
-                <td class="py-2 px-4">{{ activity.created_at }}</td>
+                <td class="py-2 px-4">{{ activity.created_at | date:'dd/MM/yyyy' }}</td>
                 <td class="py-2 px-4">{{ activity.type }}</td>
-                <td class="py-2 px-4">{{ activity.dateRemise }}</td>
+                <td class="py-2 px-4">{{ activity.dateRemise | date:'dd/MM/yyyy'}}</td>
             </tr>
         </tbody>
     </table>
