@@ -40,10 +40,12 @@ export class ActivitiesComponent {
   currentDate: Date;
   currentYear: number;
   nextYear: any;
+  isLoading: boolean;
   constructor(private activitiesService: ActivitiesService, private router: Router) {
     this.currentDate = new Date();
     this.currentYear = this.currentDate.getFullYear();
     this.nextYear = this.currentDate.getFullYear() + 1;
+    this.isLoading = true;
   }
 
   ngOnInit() {
@@ -56,6 +58,7 @@ export class ActivitiesComponent {
       }
       this.activitiesService.getAll().subscribe(
         response => {
+          this.isLoading = false;
           this.activities = response as Activity[];
           this.uniqueGroups = Array.from(new Set(this.activities.map(activity => activity.group)));
           this.uniqueClasses = Array.from(new Set(this.activities.map(activity => activity.class)));
@@ -64,6 +67,7 @@ export class ActivitiesComponent {
         },
         error => {
           // this.errorMessage = "Server error" // Error handling
+          this.isLoading = false;
         }
       );
     } else {

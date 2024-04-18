@@ -25,20 +25,28 @@ export class LoginComponent {
     email: "",
     password: ""
   }
+  PendingLog: boolean
+  FailedLog: boolean
   errorMessage: string
   token: string
   constructor(private authService: AuthService, private router: Router,) {
     this.token = ""
     this.errorMessage = ""
+    this.PendingLog = false
+    this.FailedLog = false
   }
   Login() {
+    this.PendingLog = true
     this.authService.login(this.data).subscribe(
       (response: any) => {
+        this.PendingLog = false
         localStorage.setItem("token", (response as LoginResponse).token)
         this.router.navigate(['/activities'])
       },
       error => {
         this.errorMessage = "Login ou mot de pass incorrect" // Error handling
+        this.PendingLog = false
+        this.FailedLog = true;
       }
     );
   }

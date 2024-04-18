@@ -36,7 +36,6 @@ export class CreateActivityComponent {
   filepath: FileName
   public files: NgxFileDropEntry[] = [];
   constructor(
-    private formBuilder: FormBuilder,
     private activitiesService: ActivitiesService,
     private http: HttpClient,
     private router: Router,
@@ -98,7 +97,7 @@ export class CreateActivityComponent {
 
     this.activitiesService.create(this.data).subscribe(
       (response: any) => {
-
+        this.router.navigate(['activities']);
       },
       (error) => {
       }
