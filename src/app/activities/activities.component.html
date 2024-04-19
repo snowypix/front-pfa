@@ -149,13 +149,18 @@
         </svg>
     </div>
 
-    <div *ngIf="activities.length === 0 && !isLoading" class="flex items-center justify-center h-64">
+    <div *ngIf="activities.length === 0 && !isLoading && !error" class="flex items-center justify-center h-64">
         <p class="text-gray-500 text-2xl">
             <i class="fas fa-spinner fa-spin mr-2"></i>
             Pas d'activités
         </p>
     </div>
-
+    <div *ngIf="error" class="flex items-center justify-center h-64">
+        <p class="text-red-500 text-2xl">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            Un probleme est survenu
+        </p>
+    </div>
     <table class="min-w-full mt-4 table-auto" *ngIf="activities.length > 0">
         <thead>
             <tr class="bg-gray-200">

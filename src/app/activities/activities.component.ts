@@ -41,11 +41,13 @@ export class ActivitiesComponent {
   currentYear: number;
   nextYear: any;
   isLoading: boolean;
+  error: boolean;
   constructor(private activitiesService: ActivitiesService, private router: Router) {
     this.currentDate = new Date();
     this.currentYear = this.currentDate.getFullYear();
     this.nextYear = this.currentDate.getFullYear() + 1;
     this.isLoading = true;
+    this.error = false;
   }
 
   ngOnInit() {
@@ -66,8 +68,8 @@ export class ActivitiesComponent {
           this.originalActivities = [...this.activities];
         },
         error => {
-          // this.errorMessage = "Server error" // Error handling
           this.isLoading = false;
+          this.error = true;
         }
       );
     } else {
@@ -87,13 +89,8 @@ export class ActivitiesComponent {
       if (this.filters.semestre === '1') {
 
         filteredResults = filteredResults.filter(activity => {
-          // Convert created_at to Date object
           const createdAtDate = new Date(activity.created_at);
-
-          // Get the month from the Date object (0-based, so October is 9)
           const createdAtMonth = createdAtDate.getMonth();
-
-          // Check if the month is between October and February
           const isMonthBetweenOctoberAndFebruary = (createdAtMonth >= 9 && createdAtMonth <= 11) || (createdAtMonth >= 0 && createdAtMonth <= 1);
           return isMonthBetweenOctoberAndFebruary;
         });
@@ -101,13 +98,8 @@ export class ActivitiesComponent {
       if (this.filters.semestre === '2') {
 
         filteredResults = filteredResults.filter(activity => {
-          // Convert created_at to Date object
           const createdAtDate = new Date(activity.created_at);
-
-          // Get the month from the Date object (0-based, so October is 9)
           const createdAtMonth = createdAtDate.getMonth();
-
-          // Check if the month is between October and February
           const isMonthBetweenMarchAndMay = (createdAtMonth >= 2 && createdAtMonth <= 4);
           return isMonthBetweenMarchAndMay;
         });
