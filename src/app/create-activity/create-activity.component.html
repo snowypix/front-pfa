@@ -50,29 +50,18 @@
             <input [(ngModel)]="data.description" name="description" type="text" id="matiere"
                 class="border border-gray-400 rounded w-full py-2 px-3" placeholder="Description" required>
         </div>
-        <div class="center">
-            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="uploadFiles($event)"
-                (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                    Choose file
-                    <button type="button" (click)="openFileSelector()">Browse</button>
-                </ng-template>
-            </ngx-file-drop>
-            <div class="upload-table">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                        </tr>
-                    </thead>
-                    <tbody class="upload-name-style">
-                        <tr *ngFor="let item of files; let i=index">
-                            <td><strong>{{ item.relativePath }}</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Attachments</label>
+            <div *ngFor="let fileInput of fileInputs; let i = index">
+                <input type="file" (change)="handleFileInput($event, i)"
+                    class="border border-gray-400 rounded w-full py-2 px-3 mb-2">
+                <button type="button" class="text-red-500" (click)="removeFileInput(fileInput.id)">Remove</button>
             </div>
+            <button type="button" class="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                (click)="addFileInput()">Add Another File</button>
         </div>
+
+        <!-- Submit and Cancel Buttons -->
         <div class="flex justify-end space-x-4">
             <button type="submit"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enregistrer</button>

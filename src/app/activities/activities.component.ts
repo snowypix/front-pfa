@@ -125,7 +125,8 @@ export class ActivitiesComponent {
       queryParams: {
         group: this.filters.group,
         class: this.filters.class,
-        matiere: this.filters.matiere
+        matiere: this.filters.matiere,
+        semester: this.filters.semestre
       }
     });
   }

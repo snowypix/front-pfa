@@ -11,7 +11,7 @@ interface Activity {
   class: string;
   group: string;
   description: string;
-  filePaths: string;
+  filePaths: File[];
 }
 
 @Injectable({
@@ -28,12 +28,12 @@ export class ActivitiesService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(this.url, { headers })
   }
-  // Update the create method
-  create(data: Activity) {
+  // Update the create methodhttp://localhost:8000/api/activities
+  create(formData: FormData) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`);
-
-    return this.http.post(this.url + '/create', data, { headers });
+      .set('Authorization', `Bearer ${token}`)
+      .set('enctype', 'multipart/form-data');
+    return this.http.post(this.url + '/create', formData, { headers });
   }
 }
