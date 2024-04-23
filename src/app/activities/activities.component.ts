@@ -37,6 +37,7 @@ export class ActivitiesComponent {
     class: '',
     group: '',
   }
+  cardView: boolean = false;
   currentDate: Date;
   currentYear: number;
   nextYear: any;
