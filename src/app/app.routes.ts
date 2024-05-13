@@ -12,7 +12,7 @@ export const routes: Routes = [
     { path: 'activities', component: ActivitiesComponent },
     { path: 'studentactivities', component: ActivitiesEtudComponent },
     { path: 'activity/create', component: CreateActivityComponent },
-    { path: 'activity/:id', component: ActivityComponent },
+    { path: 'activity/:id', component: ActivityEtudComponent },
     { path: 'homeworks', component: ActivitiesEtudComponent },
     { path: 'homeworks/:id', component: ActivityEtudComponent },
     { path: 'admin', component: AdminPageComponent },

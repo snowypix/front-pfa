@@ -28,6 +28,14 @@ export class ActivitiesService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(this.url, { headers })
   }
+  getbyId(id: string | null) {
+    // Get the token from wherever you have stored it (e.g., local storage, a service, etc.)
+    const token = localStorage.getItem('token'); // Replace with your actual token
+
+    // Add the token to the request headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get("http://localhost:8000/api/activity/" + id, { headers })
+  }
   // Update the create methodhttp://localhost:8000/api/activities
   create(formData: FormData) {
     const token = localStorage.getItem('token');
