@@ -28,15 +28,12 @@ export class ActivitiesEtudComponent {
   activities: Activity[] = [];
   originalActivities: Activity[] = [];
   filteredActivities: Activity[] = [];
-  uniqueGroups: string[] = [];
-  uniqueClasses: string[] = [];
   uniqueMatieres: string[] = [];
   decodedToken: any;
   filters = {
     semestre: '',
     matiere: '',
-    class: '',
-    group: '',
+    lecture: '',
   }
   currentDate: Date;
   currentYear: number;
@@ -63,8 +60,6 @@ export class ActivitiesEtudComponent {
         response => {
           this.isLoading = false;
           this.activities = response as Activity[];
-          this.uniqueGroups = Array.from(new Set(this.activities.map(activity => activity.group)));
-          this.uniqueClasses = Array.from(new Set(this.activities.map(activity => activity.class)));
           this.uniqueMatieres = Array.from(new Set(this.activities.map(activity => activity.matiere)));
           this.originalActivities = [...this.activities];
         },
@@ -82,7 +77,6 @@ export class ActivitiesEtudComponent {
     let filteredResults = this.originalActivities;
     this.activities.forEach(function (activity) {
       const dateObject = new Date(activity.created_at);
-      console.log(dateObject.getMonth());
 
     })
 
@@ -107,12 +101,12 @@ export class ActivitiesEtudComponent {
       }
     }
 
-    if (this.filters.group !== 'all') {
-      filteredResults = filteredResults.filter(activity => activity.group === this.filters.group);
-    }
-
-    if (this.filters.class !== 'all') {
-      filteredResults = filteredResults.filter(activity => activity.class === this.filters.class);
+    if (this.filters.lecture !== 'all') {
+      if (this.filters.lecture == 'lu') {
+        filteredResults = filteredResults.filter(activity => activity.lecture === this.filters.lecture);
+      } else {
+        filteredResults = filteredResults.filter(activity => activity.lecture === null);
+      }
     }
 
     if (this.filters.matiere !== 'all') {
@@ -124,8 +118,6 @@ export class ActivitiesEtudComponent {
   nouvelle() {
     this.router.navigate(["activity/create"], {
       queryParams: {
-        group: this.filters.group,
-        class: this.filters.class,
         matiere: this.filters.matiere,
         semester: this.filters.semestre
       }

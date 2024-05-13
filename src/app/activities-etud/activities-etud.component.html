@@ -30,28 +30,15 @@
                 </option>
             </select>
         </div>
-
         <div class="flex items-center">
-            <label for="classe" class="mr-2 font-medium">
-                <i class="fas fa-graduation-cap mr-1"></i>
-                Classe:
+            <label for="matiere" class="mr-2 font-medium">
+                <i class="fas fa-book mr-1"></i>
+                Lecture:
             </label>
-            <select [(ngModel)]="filters.class" id="classe" class="px-2 py-1 border border-gray-300 rounded">
-                <option value="all">All</option>
-                <option *ngFor="let class of uniqueClasses" value="{{ class }}">{{ class }}
-                </option>
-            </select>
-        </div>
-
-        <div class="flex items-center">
-            <label for="group" class="mr-2 font-medium">
-                <i class="fas fa-users mr-1"></i>
-                Groupe:
-            </label>
-            <select [(ngModel)]="filters.group" id="group" class="px-2 py-1 border border-gray-300 rounded">
-                <option value="all">All</option>
-                <option *ngFor="let group of uniqueGroups" value="{{ group }}">{{ group }}
-                </option>
+            <select [(ngModel)]="filters.lecture" id="matiere" class="px-2 py-1 border border-gray-300 rounded">
+                <option value="all">all</option>
+                <option value="lu">Lu</option>
+                <option value="non">Non lu</option>
             </select>
         </div>
     </div>
