@@ -30,6 +30,7 @@ export class ActivitiesEtudComponent {
   filteredActivities: Activity[] = [];
   uniqueMatieres: string[] = [];
   decodedToken: any;
+  cardView: boolean = false;
   filters = {
     semestre: '',
     matiere: '',
