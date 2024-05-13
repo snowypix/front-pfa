@@ -180,6 +180,10 @@
                     <i class="fas fa-calendar-check mr-1"></i>
                     Remise
                 </th>
+                <th class="py-2 px-4">
+                    <i class="fas fa-calendar-check mr-1"></i>
+                    Actions
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -188,6 +192,38 @@
                 <td class="py-2 px-4">{{ activity.created_at | date:'dd/MM/yyyy' }}</td>
                 <td class="py-2 px-4">{{ activity.type }}</td>
                 <td class="py-2 px-4">{{ activity.dateRemise | date:'dd/MM/yyyy'}}</td>
+                <td *ngIf="activity.lecture != null" class="py-2 px-4" style="width: 2px; height: auto;"><svg
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:serif="http://www.serif.com/" viewBox="0 0 32 40" version="1.1" xml:space="preserve"
+                        style="" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round"
+                        stroke-miterlimit="2">
+                        <g transform="matrix(1,0,0,1,-333,0)">
+                            <g>
+                                <path
+                                    d="M360,6C360.796,6 361.559,6.316 362.121,6.879C362.684,7.441 363,8.204 363,9L363,23C363,23.796 362.684,24.559 362.121,25.121C361.559,25.684 360.796,26 360,26L338,26C337.204,26 336.441,25.684 335.879,25.121C335.316,24.559 335,23.796 335,23L335,9C335,8.204 335.316,7.441 335.879,6.879C336.441,6.316 337.204,6 338,6L360,6ZM360,8L338,8C337.735,8 337.48,8.105 337.293,8.293C337.105,8.48 337,8.735 337,9L337,23C337,23.265 337.105,23.52 337.293,23.707C337.48,23.895 337.735,24 338,24L360,24C360.265,24 360.52,23.895 360.707,23.707C360.895,23.52 361,23.265 361,23L361,9C361,8.735 360.895,8.48 360.707,8.293C360.52,8.105 360.265,8 360,8ZM357.385,10.293C357.821,9.954 358.45,10.032 358.789,10.468C359.128,10.903 359.05,11.532 358.615,11.871L350.917,17.867C349.836,18.709 348.321,18.711 347.238,17.872L339.422,11.823C338.986,11.485 338.906,10.857 339.243,10.42C339.581,9.984 340.21,9.904 340.646,10.242L348.462,16.291C348.823,16.57 349.328,16.57 349.688,16.289L357.385,10.293Z" />
+                            </g>
+                        </g><text x="0" y="47" fill="#000000" font-size="5px" font-weight="bold"
+                            font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by
+                            icelloid</text><text x="0" y="52" fill="#000000" font-size="1px" font-weight="bold"
+                            font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun
+                            Project</text>
+                    </svg></td>
+                <td *ngIf="activity.lecture == null" class="py-2 px-4" style="width: 2px; height: auto;"><svg
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:serif="http://www.serif.com/" viewBox="0 0 32 40" version="1.1" xml:space="preserve"
+                        style="" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round"
+                        stroke-miterlimit="2">
+                        <g transform="matrix(1,0,0,1,-296,0)">
+                            <g>
+                                <path
+                                    d="M324.834,12.608C325.569,13.176 326,14.053 326,14.983L326,26C326,27.657 324.657,29 323,29L301,29C299.343,29 298,27.657 298,26L298,14.987C298,14.054 298.434,13.174 299.175,12.606L310.221,4.142C311.3,3.314 312.802,3.317 313.879,4.149L324.834,12.608ZM323.611,14.191L312.657,5.732C312.298,5.455 311.797,5.454 311.437,5.73L300.392,14.193C300.145,14.383 300,14.676 300,14.987L300,26C300,26.552 300.448,27 301,27L323,27C323.552,27 324,26.552 324,26L324,14.983C324,14.673 323.856,14.38 323.611,14.191ZM320.351,15.261C320.787,14.922 321.416,15 321.755,15.435C322.094,15.871 322.016,16.5 321.58,16.839L313.883,22.835C312.802,23.677 311.287,23.679 310.203,22.84L302.388,16.791C301.951,16.453 301.871,15.825 302.209,15.388C302.547,14.952 303.176,14.872 303.612,15.21L311.428,21.259C311.789,21.538 312.294,21.538 312.654,21.257L320.351,15.261Z" />
+                            </g>
+                        </g><text x="0" y="47" fill="#000000" font-size="5px" font-weight="bold"
+                            font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by
+                            icelloid</text><text x="0" y="52" fill="#000000" font-size="1px" font-weight="bold"
+                            font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun
+                            Project</text>
+                    </svg></td>
             </tr>
         </tbody>
     </table>

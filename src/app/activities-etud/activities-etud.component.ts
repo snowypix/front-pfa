@@ -14,6 +14,7 @@ interface Activity {
   created_at: string,
   class: string,
   group: string,
+  lecture: string
 }
 
 @Component({

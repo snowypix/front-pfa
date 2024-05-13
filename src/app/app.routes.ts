@@ -10,6 +10,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'activities', component: ActivitiesComponent },
+    { path: 'studentactivities', component: ActivitiesEtudComponent },
     { path: 'activity/create', component: CreateActivityComponent },
     { path: 'activity/:id', component: ActivityComponent },
     { path: 'homeworks', component: ActivitiesEtudComponent },
