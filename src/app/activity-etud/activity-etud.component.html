@@ -33,7 +33,7 @@
         <label class="block text-gray-700 text-sm font-bold mb-1">Description</label>
         <p class="border border-gray-300 rounded w-full py-2 px-3">{{ activity.description }}</p>
     </div>
-    <form *ngIf="activity.type == 'Travail à rendre'" (ngSubmit)="onSubmit()">
+    <form *ngIf="activity.type == 'Travail à rendre' && workSubmitted != 'submitted'" (ngSubmit)="onSubmit()">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">Attachments</label>
             <div *ngFor="let fileInput of fileInputs; let i = index">

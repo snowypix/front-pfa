@@ -42,7 +42,7 @@ export class ActivityEtudComponent {
   errorPage: boolean = false;
   fileInputs: any[] = [{ id: 0, file: null }];
   activityId: string | null;
-
+  workSubmitted: string = '';
   constructor(
     private activitiesService: ActivitiesService,
     private router: Router,
@@ -56,6 +56,16 @@ export class ActivityEtudComponent {
       response => this.activity = response as Activity,
       error => this.router.navigate(["studentactivities"])
     );
+    this.activitiesService.checkWork(this.activityId).subscribe(
+      {
+        next: (response) => {
+          this.workSubmitted = response.status; // Assigning response to variable
+        },
+        error: (error) => {
+          console.error('Error fetching submission status:', error);
+        }
+      }
+    )
   }
   addFileInput() {
     const newFileId = this.fileInputs.length;
@@ -81,7 +91,7 @@ export class ActivityEtudComponent {
       }
     });
 
-    this.activitiesService.create(formData).subscribe(
+    this.activitiesService.createWork(formData, this.activityId).subscribe(
       response => this.router.navigate(['activities']),
       error => console.error('Error submitting activity', error)
     );
