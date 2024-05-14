@@ -39,6 +39,7 @@ export class ActivityEtudComponent {
     description: '',
     filePaths: []
   };
+  errorPage: boolean = false;
   fileInputs: any[] = [{ id: 0, file: null }];
   activityId: string | null;
 
@@ -53,7 +54,7 @@ export class ActivityEtudComponent {
     this.activityId = this.route.snapshot.paramMap.get('id');
     this.activitiesService.getbyId(this.activityId).subscribe(
       response => this.activity = response as Activity,
-      error => console.error('Error submitting activity', error)
+      error => this.router.navigate(["studentactivities"])
     );
   }
   addFileInput() {
