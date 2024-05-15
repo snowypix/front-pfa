@@ -3,9 +3,10 @@ import { jwtDecode } from "jwt-decode";
 import { ActivitiesService } from '../activities.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 interface Activity {
+  id: string,
   intitule: string,
   type: string,
   matiere: string,
@@ -18,7 +19,7 @@ interface Activity {
 }
 
 @Component({
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   standalone: true,
   selector: 'app-activities',
   templateUrl: './activities-etud.component.html',
