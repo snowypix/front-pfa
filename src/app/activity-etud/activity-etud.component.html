@@ -33,7 +33,8 @@
         <label class="block text-gray-700 text-sm font-bold mb-1">Description</label>
         <p class="border border-gray-300 rounded w-full py-2 px-3">{{ activity.description }}</p>
     </div>
-    <form *ngIf="activity.type == 'Travail à rendre' && workSubmitted != 'submitted'" (ngSubmit)="onSubmit()">
+    <form *ngIf="activity.type == 'Travail à rendre' && workSubmitted != 'submitted' && !lateSubmit"
+        (ngSubmit)="onSubmit()">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">Attachments</label>
             <div *ngFor="let fileInput of fileInputs; let i = index">
@@ -53,4 +54,10 @@
                 (click)="annuler()">Annuler</button>
         </div>
     </form>
+    <div *ngIf="workSubmitted === 'submitted'">
+        <p class="text-green-500 font-bold text-center">Travail soumis</p>
+    </div>
+    <div *ngIf="lateSubmit && workSubmitted !== 'submitted'">
+        <p class="text-red-500 font-bold text-center">Retard de soumission</p>
+    </div>
 </div>

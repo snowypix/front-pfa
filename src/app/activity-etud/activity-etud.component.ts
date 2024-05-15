@@ -43,6 +43,8 @@ export class ActivityEtudComponent {
   fileInputs: any[] = [{ id: 0, file: null }];
   activityId: string | null;
   workSubmitted: string = '';
+  dateNow = new Date();
+  lateSubmit: boolean = false;
   constructor(
     private activitiesService: ActivitiesService,
     private router: Router,
@@ -51,11 +53,22 @@ export class ActivityEtudComponent {
     this.activityId = "";
   }
   ngOnInit() {
+    const formattedDate = this.dateNow.toISOString().slice(0, 19).replace('T', ' ');
     this.activityId = this.route.snapshot.paramMap.get('id');
-    this.activitiesService.getbyId(this.activityId).subscribe(
-      response => this.activity = response as Activity,
-      error => this.router.navigate(["studentactivities"])
-    );
+    this.activitiesService.getbyId(this.activityId).subscribe({
+      next: (response) => {
+        this.activity = response as Activity;
+
+        // Check deadline after activity is retrieved
+        if (formattedDate > this.activity.dateRemise) {
+          this.lateSubmit = true;
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching activities:', error);
+      }
+    }
+    )
     this.activitiesService.checkWork(this.activityId).subscribe(
       {
         next: (response) => {
