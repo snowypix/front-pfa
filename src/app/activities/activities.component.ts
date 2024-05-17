@@ -59,6 +59,9 @@ export class ActivitiesComponent {
       if (this.decodedToken.role == 'admin') {
         this.router.navigate(['admin'])
       }
+      else if (this.decodedToken.role == 'student') {
+        this.router.navigate(['studentactivities'])
+      }
       this.activitiesService.getAll().subscribe(
         response => {
           this.isLoading = false;

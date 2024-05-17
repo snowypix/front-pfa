@@ -47,6 +47,7 @@ export class ActivityEtudComponent {
   lateSubmit: boolean = false;
   downloadUrl: string = '';
   filePaths: string[] = [];
+  Loading: boolean = true;
   constructor(
     private activitiesService: ActivitiesService,
     private router: Router,
@@ -63,7 +64,7 @@ export class ActivityEtudComponent {
     this.activitiesService.getbyId(this.activityId).subscribe({
       next: (response) => {
         this.activity = response as Activity;
-
+        this.Loading = false;
         // Check deadline after activity is retrieved
         if (formattedDate > this.activity.dateRemise) {
           this.lateSubmit = true;
