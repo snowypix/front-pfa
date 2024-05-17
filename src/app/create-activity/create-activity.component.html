@@ -40,7 +40,7 @@
                 <option value="Corrigé d'examen">Corrigé d'examen</option>
             </select>
         </div>
-        <div class="mb-4">
+        <div class="mb-4" *ngIf="data.type=='Travail à rendre'">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="remise">Remise avant:</label>
             <input [(ngModel)]="data.dateRemise" name="dateRemise" type="date" id="remise"
                 class="border border-gray-400 rounded w-full py-2 px-3" placeholder="Remise avant" required>
