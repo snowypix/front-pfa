@@ -33,6 +33,14 @@
         <label class="block text-gray-700 text-sm font-bold mb-1">Description</label>
         <p class="border border-gray-300 rounded w-full py-2 px-3">{{ activity.description }}</p>
     </div>
+    <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-1">Fichier(s) d'activité</label>
+        <ul>
+            <!-- Use *ngFor on the <li> element to iterate over filePaths array -->
+            <li *ngFor="let url of filePaths"><a [href]="'http://localhost:8000/api/files/' + url">{{ url }}</a></li>
+        </ul>
+    </div>
+
     <form *ngIf="activity.type == 'Travail à rendre' && workSubmitted != 'submitted' && !lateSubmit"
         (ngSubmit)="onSubmit()">
         <div class="mb-4">

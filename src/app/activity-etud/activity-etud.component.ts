@@ -14,7 +14,7 @@ interface Activity {
   class: string;
   group: string;
   description: string;
-  filePaths: File[];
+  filePaths: string;
 }
 
 @Component({
@@ -37,7 +37,7 @@ export class ActivityEtudComponent {
     class: '',
     group: '',
     description: '',
-    filePaths: []
+    filePaths: ""
   };
   errorPage: boolean = false;
   fileInputs: any[] = [{ id: 0, file: null }];
@@ -45,12 +45,17 @@ export class ActivityEtudComponent {
   workSubmitted: string = '';
   dateNow = new Date();
   lateSubmit: boolean = false;
+  downloadUrl: string = '';
+  filePaths: string[] = [];
   constructor(
     private activitiesService: ActivitiesService,
     private router: Router,
     private route: ActivatedRoute
   ) {
     this.activityId = "";
+  }
+  download(url: string) {
+    this.activitiesService.download(url)
   }
   ngOnInit() {
     const formattedDate = this.dateNow.toISOString().slice(0, 19).replace('T', ' ');
@@ -63,6 +68,8 @@ export class ActivityEtudComponent {
         if (formattedDate > this.activity.dateRemise) {
           this.lateSubmit = true;
         }
+        this.filePaths = JSON.parse(this.activity.filePaths);
+
       },
       error: (error) => {
         console.error('Error fetching activities:', error);

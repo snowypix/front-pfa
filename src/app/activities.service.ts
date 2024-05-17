@@ -58,5 +58,9 @@ export class ActivitiesService {
     // Add the token to the request headers
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>("http://localhost:8000/api/submitstatus/" + id, { headers })
+
+  }
+  download(url: string) {
+    return this.http.get(`http://localhost:8000/api/files/${url}`);
   }
 }
