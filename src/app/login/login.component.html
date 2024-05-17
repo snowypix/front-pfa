@@ -1,34 +1,31 @@
-<div class="flex items-center justify-center h-screen">
-    <div class="bg-blue-500 shadow-lg rounded-lg p-6 max-w-md w-full text-white">
-        <h2 class="text-3xl font-semibold mb-8 text-center">Login</h2>
-        <form>
-            <div class="mb-6">
-                <label class="block text-white-300 text-sm font-semibold mb-2" for="username">
-                    Email
-                </label>
-                <input
-                    class="border rounded-lg w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring focus:border-blue-500 bg-gray-200 text-gray-800"
-                    id="username" type="text" [(ngModel)]="data.email" name="username" placeholder="Entrez votre email">
-            </div>
-            <div class="mb-6">
-                <label class="block text-white-300 text-sm font-semibold mb-2" for="password">
-                    Mot de passe
-                </label>
-                <input
-                    class="border rounded-lg w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring focus:border-blue-500 bg-gray-200 text-gray-800"
-                    id="password" [(ngModel)]="data.password" name="password" type="password" placeholder="Entrez votre mot de passe    ">
-            </div>
-            <div class="mb-6 flex items-center justify-between">
-                <button
-                    class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-6 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-                    type="button" (click)="Login()"
-                    [ngClass]="{ 'bg-blue-700': PendingLog && !FailedLog, 'bg-red-500': FailedLog && !PendingLog }">
-                    Entrer
-                </button>
-                <a class="text-white-400 hover:underline text-sm" href="#">Mot de passe oublié?</a>
-            </div>
-            <!-- Display the error message if it is not empty -->
-            <div *ngIf="errorMessage" class="text-red-500 my-4">{{ errorMessage }}</div>
-        </form>
-    </div>
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h2 class="text-2xl font-bold mb-6">Login</h2>
+    <form>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                Email
+            </label>
+            <input
+                class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username" type="text" [(ngModel)]="data.email" name="username" placeholder="@emsi.ac.ma">
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                Mot de pass
+            </label>
+            <input
+                class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="password" [(ngModel)]="data.password" name="password" type="password" placeholder="Password">
+        </div>
+        <div class="flex items-center justify-between ">
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button" (click)="Login()"
+                [ngClass]="{ 'bg-blue-800': PendingLog && !FailedLog, 'bg-red-500': FailedLog && !PendingLog }">
+                Se connecter
+            </button>
+        </div>
+        <!-- Display the error message if it is not empty -->
+        <div *ngIf="errorMessage" class="text-red-500 my-4">{{ errorMessage }}</div>
+    </form>
 </div>
