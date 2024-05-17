@@ -60,7 +60,14 @@ export class ActivitiesService {
     return this.http.get<any>("http://localhost:8000/api/submitstatus/" + id, { headers })
 
   }
-  download(url: string) {
-    return this.http.get(`http://localhost:8000/api/files/${url}`);
+  Seen(id: number) {
+    // Get the token from wherever you have stored it (e.g., local storage, a service, etc.)
+    const token = localStorage.getItem('token'); // Replace with your actual token
+
+    // Add the token to the request headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    // Send the PATCH request with headers
+    return this.http.patch<any>(`http://localhost:8000/api/seen/${id}`, {}, { headers });
   }
 }

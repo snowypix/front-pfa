@@ -4,9 +4,10 @@ import { ActivitiesService } from '../activities.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { response } from 'express';
 
 interface Activity {
-  id: string,
+  id: number,
   intitule: string,
   type: string,
   matiere: string,
@@ -73,6 +74,24 @@ export class ActivitiesEtudComponent {
     } else {
       this.router.navigate(['login'])
     }
+  }
+  Seen(id: number, event: MouseEvent) {
+    event.stopPropagation();
+    // Find the index of the activity by its id
+    const index = this.activities.findIndex(activity => activity.id === id);
+    if (index !== -1) {
+      // Update the lecture property based on its current value
+      if (this.activities[index].lecture === 'lu') {
+        this.activities[index].lecture = 'non lu';
+      } else {
+        this.activities[index].lecture = 'lu';
+      }
+    }
+    this.activitiesService.Seen(id).subscribe(
+      response => {
+      },
+      error => console.log("not ok")
+    );
   }
 
   filter() {

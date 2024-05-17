@@ -55,9 +55,6 @@ export class ActivityEtudComponent {
   ) {
     this.activityId = "";
   }
-  download(url: string) {
-    this.activitiesService.download(url)
-  }
   ngOnInit() {
     const formattedDate = this.dateNow.toISOString().slice(0, 19).replace('T', ' ');
     this.activityId = this.route.snapshot.paramMap.get('id');
