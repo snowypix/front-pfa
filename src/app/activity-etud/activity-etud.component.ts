@@ -74,6 +74,11 @@ export class ActivityEtudComponent {
       }
     }
     )
+    this.activitiesService.SeenOnce(this.activityId).subscribe(
+      response => {
+      },
+      error => console.log("not ok")
+    );
     this.activitiesService.checkWork(this.activityId).subscribe(
       {
         next: (response) => {
