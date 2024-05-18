@@ -94,7 +94,7 @@
             <span class="block border border-gray-300 rounded w-full py-2 px-3">{{ activity.matiere }}</span>
         </div>
 
-        <div>
+        <div *ngIf="activity.type == 'Travail à rendre'">
             <label class="block text-gray-700 text-sm font-bold mb-1">Date de remise</label>
             <span class="block border border-gray-300 rounded w-full py-2 px-3">{{ activity.dateRemise }}</span>
         </div>
