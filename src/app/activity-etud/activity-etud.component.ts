@@ -64,7 +64,8 @@ export class ActivityEtudComponent {
         this.Loading = false;
         // Check deadline after activity is retrieved
         if (formattedDate > this.activity.dateRemise) {
-          this.lateSubmit = true;
+          if (this.activity.type == 'Travail à rendre')
+            this.lateSubmit = true;
         }
         this.filePaths = JSON.parse(this.activity.filePaths);
 
