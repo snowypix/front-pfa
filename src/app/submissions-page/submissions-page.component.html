@@ -1,1 +1,34 @@
-<p>submissions-page works!</p>
+<div class="container">
+    <h2>Submissions</h2>
+    <table class="min-w-full mt-4 table-auto">
+        <thead>
+            <tr class="bg-gray-200 text-left">
+                <th class="py-3 px-6 font-semibold text-sm text-gray-600">Activity ID</th>
+                <th class="py-3 px-6 font-semibold text-sm text-gray-600">Intitule</th>
+                <th class="py-3 px-6 font-semibold text-sm text-gray-600">Matiere</th>
+                <th class="py-3 px-6 font-semibold text-sm text-gray-600">File Paths</th>
+                <th class="py-3 px-6 font-semibold text-sm text-gray-600">Class</th>
+                <th class="py-3 px-6 font-semibold text-sm text-gray-600">Group</th>
+                <th class="py-3 px-6 font-semibold text-sm text-gray-600">Student</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let submission of data" class="border-b">
+                <td>{{ submission.activity_id }}</td>
+                <td>{{ submission.intitule }}</td>
+                <td>{{ submission.matiere }}</td>
+                <td>
+                    <ul *ngIf="getParsedFilePaths(submission).length > 0">
+                        <li *ngFor="let filePath of getParsedFilePaths(submission)">
+                            <a href="{{ getFileUrl(filePath) }}">{{ filePath }}</a>
+                        </li>
+                    </ul>
+                    <span *ngIf="getParsedFilePaths(submission).length === 0">No files</span>
+                </td>
+                <td>{{ submission.class }}</td>
+                <td>{{ submission.group }}</td>
+                <td>{{ submission.student }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
