@@ -238,11 +238,12 @@
                     <p class="text-sm text-black mt-2 bold">à remettre avant le {{ activity.dateRemise |
                         date:'dd/MM/yyyy'
                         }}</p>
-                    <div *ngIf="activity.lecture != null" class="py-2 px-4" style="width: 5px; height: auto;"><svg
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            xmlns:serif="http://www.serif.com/" viewBox="0 0 32 40" version="1.1" xml:space="preserve"
-                            style="" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round"
-                            stroke-miterlimit="2" width="49" height="30">
+                    <div *ngIf="activity.lecture == null || activity.lecture == 'non lu'" class="py-2 px-4"
+                        style="width: 5px; height: auto;"><svg xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:serif="http://www.serif.com/"
+                            viewBox="0 0 32 40" version="1.1" xml:space="preserve" style="" x="0px" y="0px"
+                            fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2"
+                            width="49" height="30">
                             <g transform="matrix(1,0,0,1,-333,0)">
                                 <g>
                                     <path
@@ -255,7 +256,7 @@
                                 Noun
                                 Project</text>
                         </svg></div>
-                    <div *ngIf="activity.lecture == null" class="py-2 px-4" style="width: 5px; height: auto;"><svg
+                    <div *ngIf="activity.lecture == 'lu'" class="py-2 px-4" style="width: 5px; height: auto;"><svg
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             xmlns:serif="http://www.serif.com/" viewBox="0 0 32 40" version="1.1" xml:space="preserve"
                             style="" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round"
