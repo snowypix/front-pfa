@@ -14,20 +14,20 @@
         </thead>
         <tbody>
             <tr *ngFor="let submission of data" class="border-b">
-                <td>{{ submission.activity_id }}</td>
-                <td>{{ submission.intitule }}</td>
-                <td>{{ submission.matiere }}</td>
-                <td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ submission.activity_id }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ submission.intitule }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ submission.matiere }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">
                     <ul *ngIf="getParsedFilePaths(submission).length > 0">
                         <li *ngFor="let filePath of getParsedFilePaths(submission)">
-                            <a href="{{ getFileUrl(filePath) }}">{{ filePath }}</a>
+                            <a href="{{ getFileUrl(filePath) }}"><u><strong>{{ filePath }}</strong></u></a>
                         </li>
                     </ul>
-                    <span *ngIf="getParsedFilePaths(submission).length === 0">No files</span>
+                    <span *ngIf="getParsedFilePaths(submission).length === 0">aucune soumission</span>
                 </td>
-                <td>{{ submission.class }}</td>
-                <td>{{ submission.group }}</td>
-                <td>{{ submission.student }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ submission.class }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ submission.group }}</td>
+                <td class="py-3 px-6 text-sm text-gray-800">{{ submission.student }}</td>
             </tr>
         </tbody>
     </table>

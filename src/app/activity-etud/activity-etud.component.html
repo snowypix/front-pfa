@@ -119,7 +119,8 @@
         <label class="block text-gray-700 text-sm font-bold mb-1">Fichier(s) d'activité</label>
         <ul>
             <!-- Use *ngFor on the <li> element to iterate over filePaths array -->
-            <li *ngFor="let url of filePaths"><a [href]="'http://localhost:8000/api/files/' + url">{{ url }}</a></li>
+            <li *ngFor="let url of filePaths"><a [href]="'http://localhost:8000/api/files/' + url"><u><strong>{{ url
+                            }}</strong></u></a></li>
         </ul>
     </div>
 

@@ -4,6 +4,7 @@ import { ActivitiesService } from '../activities.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
 
 interface Activity {
   intitule: string;
@@ -48,6 +49,7 @@ export class ActivityEtudComponent {
   downloadUrl: string = '';
   filePaths: string[] = [];
   Loading: boolean = true;
+  decodedToken: any;
   constructor(
     private activitiesService: ActivitiesService,
     private router: Router,
@@ -56,40 +58,47 @@ export class ActivityEtudComponent {
     this.activityId = "";
   }
   ngOnInit() {
-    const formattedDate = this.dateNow.toISOString().slice(0, 19).replace('T', ' ');
-    this.activityId = this.route.snapshot.paramMap.get('id');
-    this.activitiesService.getbyId(this.activityId).subscribe({
-      next: (response) => {
-        this.activity = response as Activity;
-        this.Loading = false;
-        // Check deadline after activity is retrieved
-        if (formattedDate > this.activity.dateRemise) {
-          if (this.activity.type == 'Travail à rendre')
-            this.lateSubmit = true;
-        }
-        this.filePaths = JSON.parse(this.activity.filePaths);
-
-      },
-      error: (error) => {
-        console.error('Error fetching activities:', error);
-      }
-    }
-    )
-    this.activitiesService.SeenOnce(this.activityId).subscribe(
-      response => {
-      },
-      error => console.log("not ok")
-    );
-    this.activitiesService.checkWork(this.activityId).subscribe(
-      {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const formattedDate = this.dateNow.toISOString().slice(0, 19).replace('T', ' ');
+      this.activityId = this.route.snapshot.paramMap.get('id');
+      this.activitiesService.getbyId(this.activityId).subscribe({
         next: (response) => {
-          this.workSubmitted = response.status; // Assigning response to variable
+          this.activity = response as Activity;
+          this.Loading = false;
+          // Check deadline after activity is retrieved
+          if (formattedDate > this.activity.dateRemise) {
+            if (this.activity.type == 'Travail à rendre')
+              this.lateSubmit = true;
+          }
+          this.filePaths = JSON.parse(this.activity.filePaths);
+          this.decodedToken = jwtDecode(token);
+          if (this.decodedToken.role != 'student') {
+            this.router.navigate(['activities'])
+          }
         },
         error: (error) => {
-          console.error('Error fetching submission status:', error);
+          console.error('Error fetching activities:', error);
         }
       }
-    )
+      )
+      this.activitiesService.SeenOnce(this.activityId).subscribe(
+        response => {
+        },
+        error => console.log("not ok")
+      );
+      this.activitiesService.checkWork(this.activityId).subscribe(
+        {
+          next: (response) => {
+            this.workSubmitted = response.status; // Assigning response to variable
+          },
+          error: (error) => {
+            console.error('Error fetching submission status:', error);
+          }
+        }
+      )
+    }
+
   }
   addFileInput() {
     const newFileId = this.fileInputs.length;
