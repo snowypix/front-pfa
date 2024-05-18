@@ -123,7 +123,7 @@
         </ul>
     </div>
 
-    <form *ngIf="activity.type == 'Travail à rendre' && workSubmitted != 'submitted' && !lateSubmit"
+    <form *ngIf="activity.type == 'Travail à rendre' && workSubmitted != 'soumis' && !lateSubmit"
         (ngSubmit)="onSubmit()">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">Attachments</label>
@@ -144,10 +144,10 @@
                 (click)="annuler()">Annuler</button>
         </div>
     </form>
-    <div *ngIf="workSubmitted === 'submitted'">
+    <div *ngIf="workSubmitted === 'soumis'">
         <p class="text-green-500 font-bold text-center">Travail soumis</p>
     </div>
-    <div *ngIf="lateSubmit && workSubmitted !== 'submitted'">
+    <div *ngIf="lateSubmit && workSubmitted !== 'soumis'">
         <p class="text-red-500 font-bold text-center">Retard de soumission</p>
     </div>
 </div>
