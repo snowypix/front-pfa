@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivitiesService } from '../activities.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
 interface Submissions {
   activity_id: number,
   intitule: string,
@@ -22,7 +23,17 @@ interface Submissions {
 export class SubmissionsPageComponent {
   data: Submissions[] = [];
   filePaths: string[] = [];
+  decodedToken: any;
   ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.decodedToken = jwtDecode(token);
+      if (this.decodedToken.role != 'prof') {
+        this.router.navigate(['activities'])
+      }
+    } else {
+      this.router.navigate(['activities'])
+    }
     this.activitiesService.getAllSubmissions().subscribe(
       response => {
         this.data = response as Submissions[];

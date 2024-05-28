@@ -81,6 +81,10 @@ export class ActivitiesComponent {
     }
   }
 
+  sub() {
+    this.router.navigate(['submissions'])
+  }
+
   filter() {
     let filteredResults = this.originalActivities;
     this.activities.forEach(function (activity) {
