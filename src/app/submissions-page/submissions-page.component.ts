@@ -24,6 +24,7 @@ export class SubmissionsPageComponent {
   data: Submissions[] = [];
   filePaths: string[] = [];
   decodedToken: any;
+  Loading: boolean = true;
   ngOnInit() {
     const token = localStorage.getItem('token');
     if (token) {

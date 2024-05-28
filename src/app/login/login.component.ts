@@ -41,6 +41,7 @@ export class LoginComponent {
       (response: any) => {
         this.PendingLog = false
         localStorage.setItem("token", (response as LoginResponse).token)
+        location.reload();
         this.router.navigate(['/activities'])
       },
       error => {
